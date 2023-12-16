@@ -55,19 +55,21 @@ menu = WebDriverWait(browser, 20).until(
 )
 # เปิดเมนูด้านข้าง
 menu.click()
+
 # เปิดเมนู Salary เงินเดือน
-browser.find_element(By.XPATH, "//a[@href='/admin/salary']").click()
+menu_salary = WebDriverWait(browser, 20).until(
+    EC.presence_of_element_located((By.XPATH, "//a[@href='/admin/salary']"))
+)
+menu_salary.click()
 
 search_tea = WebDriverWait(browser, 10).until(
     EC.presence_of_element_located((By.ID, "input-149"))
 )
-# search_tea.click()
 search_tea.send_keys('FS1234')
 
 selectName = WebDriverWait(browser, 10).until(
     EC.presence_of_element_located((By.ID, "list-item-181-0"))
 )
-
 selectName.click()
 
 time.sleep(2)
