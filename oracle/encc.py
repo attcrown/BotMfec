@@ -1,6 +1,8 @@
 # encc.py
 import os
 import time
+from datetime import date
+from PIL import ImageGrab
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
 from selenium.webdriver.edge.options import Options
@@ -12,8 +14,18 @@ url = "https://oms1:7799/em/faces/logon/core-uifwk-console-login"
 user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'
 edge_driver_path = os.path.join(os.getcwd(), 'msedgedriver.exe')
 edge_options = Options()
+# edge_options.add_argument("--headless")
+
 edge_options.add_argument(f'user-agent={user_agent}')
+
 browser = webdriver.Edge(service=Service(edge_driver_path), options=edge_options)
+browser.set_window_position(0, 0)
+browser.set_window_size(1440, 900)
+
+#Capture Desktop ,Browser
+screenshot = ImageGrab.grab()
+
+# EnCC
 urldashboard = "https://oms1:7799/em/jetp/dashboards/index.html"
 username = "aasupport"
 password = "Pa55w.rd123!"
@@ -57,6 +69,7 @@ def EnccDoing():
         #     # EC.url_to_be("expected_full_url")
         # )
         print('login Success ->> goDashboard') 
+        
         Godashboard()
         
     except:
@@ -64,9 +77,18 @@ def EnccDoing():
         
 def Godashboard():
     browser.get(urldashboard)
-    browser.save_screenshot("screenshot.png")
-        
+
+    main_dashboard_element = WebDriverWait(browser, 30).until(
+        EC.presence_of_element_located((By.XPATH, "//span[text()='Main Dashboard']"))
+    )
+    main_dashboard_element.click()
     
+    time.sleep(10)
+    current_date = date.today()
+    browser.save_screenshot(f"DashEncc{current_date}.png")
+    print('Capture Encc Success')
+    
+
 # EnccDoing() #Step Login
 
 
