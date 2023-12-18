@@ -59,7 +59,7 @@ def SolarwindDoing():
         print('Capture Solarwind Success')
         
         # CheckCWTower
-        CheckTW()
+        # CheckTW()
     
     except:
         print('ล้มเหลว')
@@ -76,8 +76,6 @@ def CheckTW():
     # ตรวจสอบข้อความใน Element
     if "Node is Critical." in element.text:
         element.click()
-    else :
-        element.click()
         time.sleep(10)
         current_date = date.today()
         browser.save_screenshot(f"Alert_CWTower02{current_date}.png")
@@ -88,6 +86,18 @@ def CheckTW():
         browser.execute_script("arguments[0].scrollIntoView();", element)
         time.sleep(4)
         browser.save_screenshot(f"Alert_CWTower02{current_date}_2.png")
+    # else :
+        # element.click()
+        # time.sleep(10)
+        # current_date = date.today()
+        # browser.save_screenshot(f"Alert_CWTower02{current_date}.png")
+        
+        # element = WebDriverWait(browser, 60).until(
+        #     EC.presence_of_element_located((By.XPATH, "//td[@class='PropertyHeader' and text()='Description']"))
+        # )
+        # browser.execute_script("arguments[0].scrollIntoView();", element)
+        # time.sleep(4)
+        # browser.save_screenshot(f"Alert_CWTower02{current_date}_2.png")
 
         
-# SolarwindDoing()
+SolarwindDoing()
